@@ -8,6 +8,8 @@ on:
 jobs:
   validate:
     runs-on: ubuntu-latest
+    env:
+      SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -31,9 +33,8 @@ jobs:
 
       - name: Security scan (Snyk agent-scan)
         # SNYK_TOKEN が設定されているリポジトリでのみ実行
-        if: ${{ secrets.SNYK_TOKEN != '' }}
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        # (secrets コンテキストは if で使えないため job 直下の env 経由)
+        if: env.SNYK_TOKEN != ''
         run: |
           pip install --quiet uv
           uvx snyk-agent-scan@latest skills --json > agent-scan.json || status=$?
