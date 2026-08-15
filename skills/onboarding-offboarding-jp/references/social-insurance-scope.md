@@ -1,3 +1,9 @@
+---
+source-checked: 2026-08-15
+unverified: true
+unverified-notes: 賃金月額要件(8.8万円)の撤廃時期は政令待ちで未確定
+---
+
 # 短時間労働者(パート等)の社会保険加入要件と段階的拡大
 
 出典: 厚生労働省「社会保険適用拡大特設サイト」 https://www.mhlw.go.jp/tekiyoukakudai/(閲覧日 2026-08-15)。要件の詳細は日本年金機構の案内を参照。

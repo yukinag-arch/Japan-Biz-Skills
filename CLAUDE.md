@@ -14,11 +14,13 @@ Japan-Biz-Skills は、日本の中小企業のバックオフィス業務(記�
 ## 手順(新しいスキル)
 
 1. `template/SKILL.md` を `skills/<業務名>-jp/SKILL.md` に複製(職種名ではなく業務名で切る)
-2. ヒアリングの内容を反映して本文を書く。長くなる部分は `references/` に切り出す
-3. `evals/evals.json` にテストプロンプトを置く(まず prompt と expected_output。assertions は実行中に足す)
-4. `python3 scripts/validate_skills.py` を通す
-5. スキルあり/なしで実行し、レビュー用ビューアを生成して人間に見せる。フィードバックで改訂
+2. ヒアリングの内容を反映して本文を書く。長くなる部分は `references/` に切り出す。`references/*.md` には `source-checked`(閲覧日)と `unverified` の frontmatter を必ず付ける
+3. `evals/evals.json` にテストプロンプトを置く(prompt / expected_output / `kind` / `today`。assertions は実行中に足す)
+4. `make check` を通す
+5. `make eval SKILL=<name>` でスキルあり/なしを走らせ、`review.html` を人間に見せる。フィードバックで改訂(→ CONTRIBUTING 9章)
 6. 士業に隣接する内容は `metadata.status: reviewed` にとどめ、専門家一読の記録が入るまで `released` にしない
+
+**評価で差が出ないときに本文を厚くしないこと。** あり/なしで結果が割れないのは assertions が素のモデルの知識を測っているからで、直すのは評価の設計。発火しないなら直すのは `description`。
 
 ## 手順(他のリポジトリからの取り込み)
 

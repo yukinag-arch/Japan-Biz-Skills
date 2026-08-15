@@ -1,3 +1,5 @@
+# 評価の実行結果(応答・採点・レビュー用HTML)。scripts/run_evals.py が書く
+.evals/
 # skill-creator の評価ワークスペース(実行結果・レビュー用HTML)
 *-workspace/
 # scan reports

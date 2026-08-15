@@ -1,13 +1,20 @@
 {
-  "version": 1,
+  "version": 2,
   "notes": "対象外領域の語彙。本文(SKILL.md / references)に出たら validate_skills.py はエラーにする。緩める方向の変更は人間の判断で行うこと。",
   "forbidden_terms": [
     "勤怠", "打刻", "出退勤", "勤怠表", "タイムカード", "タイムシート",
     "attendance", "timesheet", "time clock", "clock-in", "clock in", "clock-out", "clock out",
     "給与計算", "payroll"
   ],
+  "allow_context_markers": [
+    "範囲外", "対象外", "扱わない", "扱いません", "扱わず", "含まない", "対象としない", "立ち入らない",
+    "out of scope", "not covered"
+  ],
+  "allow_notes": "対象外語彙でも、範囲外を宣言している行(上のいずれかを同じ行に含む)は許す。「勤怠管理は扱わない」と書けないと範囲の宣言自体ができなくなるため。判定は行単位。",
   "warn_terms_product_names": [
     "kintone", "freee", "マネーフォワード", "SmartHR", "Slack", "Chatwork", "LINE WORKS", "Salesforce", "Notion", "Google Workspace", "Microsoft 365"
   ],
-  "warn_notes": "製品名は references/ の出典としてのみ可。本文中に出たら警告(エラーではない)。"
+  "warn_notes": "製品名は references/ の出典としてのみ可。本文中に出たら警告(エラーではない)。",
+  "freshness_months": 12,
+  "freshness_notes": "references/*.md の frontmatter の source-checked(一次情報の閲覧日)がこの月数を超えたら、draft では警告・reviewed 以上ではエラー。法改正で内容が腐るのを検知するため。"
 }

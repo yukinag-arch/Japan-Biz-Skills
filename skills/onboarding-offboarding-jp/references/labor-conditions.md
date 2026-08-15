@@ -1,3 +1,8 @@
+---
+source-checked: 2026-08-15
+unverified: false
+---
+
 # 労働条件明示 — 2024年4月改正の要点
 
 出典: 厚生労働省「2024年4月から労働条件明示のルールが変わります」 https://muki.mhlw.go.jp/rule.html(閲覧日 2026-08-15)
