@@ -1,0 +1,11 @@
+# skill-creator の評価ワークスペース(実行結果・レビュー用HTML)
+*-workspace/
+# scan reports
+skill-scanner.json
+agent-scan.json
+# OS / editor
+.DS_Store
+Thumbs.db
+__pycache__/
+*.pyc
+.claude/settings.local.json

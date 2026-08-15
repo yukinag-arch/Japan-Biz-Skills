@@ -1,0 +1,51 @@
+name: validate-skills
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Frontmatter / 語彙 / 評価の有無
+        run: python3 scripts/validate_skills.py
+
+      - name: Security scan (Cisco skill-scanner)
+        # ベストエフォートの検出。清浄の証明ではない(README 参照)
+        run: |
+          pip install --quiet cisco-ai-skill-scanner
+          if [ -d skills ] && [ "$(ls -A skills)" ]; then
+            skill-scanner scan-all skills --recursive --format json > skill-scanner.json || status=$?
+            cat skill-scanner.json
+            exit ${status:-0}
+          else
+            echo "skills/ が空のためスキップ"
+          fi
+
+      - name: Security scan (Snyk agent-scan)
+        # SNYK_TOKEN が設定されているリポジトリでのみ実行
+        if: ${{ secrets.SNYK_TOKEN != '' }}
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        run: |
+          pip install --quiet uv
+          uvx snyk-agent-scan@latest skills --json > agent-scan.json || status=$?
+          cat agent-scan.json
+          exit ${status:-0}
+
+      - name: Upload scan reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: scan-reports
+          path: |
+            skill-scanner.json
+            agent-scan.json
+          if-no-files-found: ignore
